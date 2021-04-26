@@ -4,42 +4,13 @@ import '../styles/global.scss';
 import { Header } from '../components/Header';
 import { Player } from '../components/Player';
 
-import { PlayerContext } from '../contexts/playerContext';
-
 import styles from '../styles/app.module.scss'
-import { useState } from 'react';
+import { PlayerContextProvider } from '../contexts/PlayerContext';
+
 
 function MyApp({ Component, pageProps }) {
-  const [episodeList, setEpisodeList] = useState([]);
-  const [currentEspisodeIndex, setcurrentEpisodeIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-
-  function play (episode){
-    setEpisodeList([episode]);
-    setcurrentEpisodeIndex(0);
-    setIsPlaying(true);
-  }
-
-  function togglePlay() {
-    setIsPlaying(!isPlaying);
-  }
-
-  function setIsPlayingState(state: boolean) {
-    setIsPlaying(state);
-  }
-
   return (
-    <PlayerContext.Provider 
-      value={{ 
-        episodeList, 
-        currentEspisodeIndex, 
-        play, 
-        isPlaying, 
-        togglePlay,
-        setIsPlayingState
-      }}>
-
+    <PlayerContextProvider>
       <div className={styles.wrapper}>
         <main>
           <Header />
@@ -47,7 +18,7 @@ function MyApp({ Component, pageProps }) {
         </main>
         <Player />
       </div>
-    </PlayerContext.Provider>
+    </PlayerContextProvider>
   )
 }
 
